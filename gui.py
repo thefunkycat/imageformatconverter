@@ -35,7 +35,25 @@ class GUIWindow:
         return [window_width, window_height, x_coord, y_coord]
 
     def _create_frames(self):
-        left_frame = tk.Frame(self.root, bg="white")
+        # Create left and right frames
+        left_frame = tk.Frame(self.root)
         left_frame.pack(side="left", expand=True, fill="both")
-        right_frame = tk.Frame(self.root, bg="pink")
+        right_frame = tk.Frame(self.root)
         right_frame.pack(side="right", expand=True, fill="both")
+
+        # Set up data and variables for dropdowns
+        self.formats = ["HEIC", "JPEG", "JPG", "PNG"]
+        self.format_from = tk.StringVar()
+        self.format_to = tk.StringVar()
+
+        # Set arbitrary initial values
+        self.format_from.set("HEIC")
+        self.format_to.set("JPG")
+
+        # Create Dropdown menus
+        drop_from = tk.OptionMenu(left_frame, self.format_from, *self.formats)
+        drop_from.place(relx=0.5, rely=0.5, anchor="center")
+        drop_to = tk.OptionMenu(right_frame, self.format_to, *self.formats)
+        drop_to.place(relx=0.5, rely=0.5, anchor="center")
+
+
