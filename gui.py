@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import filedialog
 
 
 class GUIWindow:
@@ -54,6 +55,12 @@ class GUIWindow:
 
         self.root.geometry("{}x{}+{}+{}".format(window_width, window_height, x_coord, y_coord))
 
+    @staticmethod
+    def button_click():
+        print("Button clicked!")
+        # Open the file dialog
+        file_path = filedialog.askopenfilename()
+
     def _create_frames(self):
         """
         Create left and right frames and setup dropdown menus.
@@ -75,8 +82,9 @@ class GUIWindow:
 
         # Create Dropdown menus
         drop_from = tk.OptionMenu(left_frame, self.format_from, *self.formats)
+        button = tk.Button(left_frame, text="Click Me", command=self.button_click)
+        button.place(relx=0.5, rely=0.5, anchor="center")
         drop_from.place(relx=0.5, rely=0.5, anchor="center")
         drop_to = tk.OptionMenu(right_frame, self.format_to, *self.formats)
         drop_to.place(relx=0.5, rely=0.5, anchor="center")
-
 
