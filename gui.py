@@ -8,15 +8,18 @@ class GUIWindow:
         self.root = tk.Tk()
         self.root.title("Image Format Converter")
 
-        window_width, window_height, x_coord, y_coord = self.get_window_geometry()
+        # Unpack window geometry variables
+        window_width, window_height, x_coord, y_coord = self._get_window_geometry()
 
         # Set the window's geometry
         self.root.geometry("{}x{}+{}+{}".format(window_width, window_height, x_coord, y_coord))
 
+        self._create_frames()
+
         # Start the main event loop
         self.root.mainloop()
 
-    def get_window_geometry(self):
+    def _get_window_geometry(self):
         # Set the window size
         window_height = 500
         window_width = 900
@@ -30,3 +33,9 @@ class GUIWindow:
         y_coord = int((screen_height / 2) - 2 * (window_height / 3))
 
         return [window_width, window_height, x_coord, y_coord]
+
+    def _create_frames(self):
+        left_frame = tk.Frame(self.root, bg="white")
+        left_frame.pack(side="left", expand=True, fill="both")
+        right_frame = tk.Frame(self.root, bg="pink")
+        right_frame.pack(side="right", expand=True, fill="both")
