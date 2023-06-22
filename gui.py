@@ -8,10 +8,10 @@ class GUIWindow:
     A class representing the main GUI window for the Image Format Converter.
 
     Attributes:
-        root (Tk): The main Tkinter window.
-        formats (list): A list of supported image formats.
-        format_from (StringVar): The selected format to convert from.
-        format_to (StringVar): The selected format to convert to.
+        _root (Tk): The main Tkinter window.
+        _FORMATS (list): A list of supported image formats.
+        _format_from (StringVar): The selected format to convert from.
+        _format_to (StringVar): The selected format to convert to.
     """
 
     def __init__(self):
@@ -21,9 +21,13 @@ class GUIWindow:
         """
 
         # Create the main window
-        self.root = tk.Tk()
+        self._root = tk.Tk()
+
+        # Set up format list
+        self._FORMATS = ["HEIC", "JPEG", "JPG", "PNG"]
+
         # Set title
-        self.root.title("Image Format Converter")
+        self._root.title("Image Format Converter")
 
         # Set the window's geometry
         self._set_window_geometry()
@@ -32,7 +36,7 @@ class GUIWindow:
         self._create_frames()
 
         # Start the main event loop
-        self.root.mainloop()
+        self._root.mainloop()
 
     def _set_window_geometry(self):
         """
@@ -42,22 +46,21 @@ class GUIWindow:
         It is resizable.
         """
         # Set the window size
-        window_height = 500
-        window_width = 900
+        _window_height = 500
+        _window_width = 900
 
         # Get the screen size information
-        screen_width = self.root.winfo_screenwidth()
-        screen_height = self.root.winfo_screenheight()
+        _screen_width = self._root.winfo_screenwidth()
+        _screen_height = self._root.winfo_screenheight()
 
         # Calculate the coordinates to approximately center the window
-        x_coord = int((screen_width / 2) - (window_width / 2))
-        y_coord = int((screen_height / 2) - 2 * (window_height / 3))
+        _x_coord = int((_screen_width / 2) - (_window_width / 2))
+        _y_coord = int((_screen_height / 2) - 2 * (_window_height / 3))
 
-        self.root.geometry("{}x{}+{}+{}".format(window_width, window_height, x_coord, y_coord))
+        self._root.geometry("{}x{}+{}+{}".format(_window_width, _window_height, _x_coord, _y_coord))
 
     @staticmethod
     def button_click():
-        print("Button clicked!")
         # Open the file dialog
         file_path = filedialog.askopenfilename()
 
@@ -66,25 +69,23 @@ class GUIWindow:
         Create left and right frames and setup dropdown menus.
         """
         # Create left and right frames
-        left_frame = tk.Frame(self.root)
-        left_frame.pack(side="left", expand=True, fill="both")
-        right_frame = tk.Frame(self.root)
-        right_frame.pack(side="right", expand=True, fill="both")
+        _left_frame = tk.Frame(self._root)
+        _left_frame.pack(side="left", expand=True, fill="both")
+        _right_frame = tk.Frame(self._root)
+        _right_frame.pack(side="right", expand=True, fill="both")
 
-        # Set up data and variables for dropdowns
-        self.formats = ["HEIC", "JPEG", "JPG", "PNG"]
-        self.format_from = tk.StringVar()
-        self.format_to = tk.StringVar()
+        # Set up dropdown data
+        self._format_from = tk.StringVar()
+        self._format_to = tk.StringVar()
 
         # Set arbitrary initial values
-        self.format_from.set("HEIC")
-        self.format_to.set("JPG")
+        self._format_from.set("HEIC")
+        self._format_to.set("JPG")
 
         # Create Dropdown menus
-        drop_from = tk.OptionMenu(left_frame, self.format_from, *self.formats)
-        button = tk.Button(left_frame, text="Click Me", command=self.button_click)
-        button.place(relx=0.5, rely=0.5, anchor="center")
-        drop_from.place(relx=0.5, rely=0.5, anchor="center")
-        drop_to = tk.OptionMenu(right_frame, self.format_to, *self.formats)
-        drop_to.place(relx=0.5, rely=0.5, anchor="center")
-
+        _drop_from = tk.OptionMenu(_left_frame, self._format_from, *self._FORMATS)
+        _button = tk.Button(_left_frame, text="Click Me", command=self.button_click)
+        _button.place(relx=0.5, rely=0.5, anchor="center")
+        _drop_from.place(relx=0.5, rely=0.5, anchor="center")
+        _drop_to = tk.OptionMenu(_right_frame, self._format_to, *self._FORMATS)
+        _drop_to.place(relx=0.5, rely=0.5, anchor="center")
