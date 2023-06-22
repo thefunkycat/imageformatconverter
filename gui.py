@@ -1,28 +1,26 @@
 import tkinter as tk
 
-def on_option_selected(selected_option):
-    print("Selected option:", selected_option)
-
 
 def create_gui():
     # Create the main window
-    window = tk.Tk()
-    window.title("Image Format Converter")
+    root = tk.Tk()
+    root.title("Image Format Converter")
 
-    input_format = tk.StringVar(window)
+    # Set the window size
+    window_height = 500
+    window_width = 900
 
-    # Set the initial value for the dropdown
-    input_format.set("None")
+    # Get the screen size information
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
 
-    dropdown_frame = tk.Frame(window)
-    dropdown_frame.pack(pady=10, side=tk.LEFT)
-    # Create the OptionMenu widget
-    dropdown = tk.OptionMenu(dropdown_frame, input_format, "HEIC", "JPEG", "PNG")
-    dropdown.pack()
+    # Calculate the coordinates to approximately center the window
+    x_coord = int((screen_width / 2) - (window_width / 2))
+    y_coord = int((screen_height / 2) - 2 * (window_height / 3))
 
-    # Create a button to print the selected option
-    button = tk.Button(window, text="Print Selection", command=lambda: on_option_selected(input_format.get()))
-    button.pack()
+    # Set the window's geometry
+    root.geometry("{}x{}+{}+{}".format(window_width, window_height, x_coord, y_coord))
 
-    # Start the GUI event loop
-    window.mainloop()
+    # Start the main event loop
+    root.mainloop()
+
