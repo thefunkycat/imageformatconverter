@@ -3,23 +3,43 @@ import tkinter as tk
 
 class GUIWindow:
 
+    """
+    A class representing the main GUI window for the Image Format Converter.
+
+    Attributes:
+        root (Tk): The main Tkinter window.
+        formats (list): A list of supported image formats.
+        format_from (StringVar): The selected format to convert from.
+        format_to (StringVar): The selected format to convert to.
+    """
+
     def __init__(self):
+
+        """
+        Initialize the GUIWindow class and create the main window.
+        """
+
         # Create the main window
         self.root = tk.Tk()
+        # Set title
         self.root.title("Image Format Converter")
 
-        # Unpack window geometry variables
-        window_width, window_height, x_coord, y_coord = self._get_window_geometry()
-
         # Set the window's geometry
-        self.root.geometry("{}x{}+{}+{}".format(window_width, window_height, x_coord, y_coord))
+        self._set_window_geometry()
 
+        # Set up frames
         self._create_frames()
 
         # Start the main event loop
         self.root.mainloop()
 
-    def _get_window_geometry(self):
+    def _set_window_geometry(self):
+        """
+        Set the geometry of the main window to be approximately centered
+        based on screen size.
+        The window size is set to a standard of 900x500 pixels.
+        It is resizable.
+        """
         # Set the window size
         window_height = 500
         window_width = 900
@@ -32,9 +52,12 @@ class GUIWindow:
         x_coord = int((screen_width / 2) - (window_width / 2))
         y_coord = int((screen_height / 2) - 2 * (window_height / 3))
 
-        return [window_width, window_height, x_coord, y_coord]
+        self.root.geometry("{}x{}+{}+{}".format(window_width, window_height, x_coord, y_coord))
 
     def _create_frames(self):
+        """
+        Create left and right frames and setup dropdown menus.
+        """
         # Create left and right frames
         left_frame = tk.Frame(self.root)
         left_frame.pack(side="left", expand=True, fill="both")
