@@ -35,6 +35,8 @@ class GUIWindow:
         # Set up frames
         self._create_frames()
 
+        self.image_to_convert = None
+
         # Start the main event loop
         self._root.mainloop()
 
@@ -60,9 +62,9 @@ class GUIWindow:
         self._root.geometry("{}x{}+{}+{}".format(_window_width, _window_height, _x_coord, _y_coord))
 
     @staticmethod
-    def button_click():
+    def upload_image():
         # Open the file dialog
-        file_path = filedialog.askopenfilename()
+        file_path = filedialog.askopenfilename(filetypes=[('JPEG File', '*.jpeg'), ('HEIC File', '*.heic')])
 
     def _create_frames(self):
         """
@@ -75,17 +77,13 @@ class GUIWindow:
         _right_frame.pack(side="right", expand=True, fill="both")
 
         # Set up dropdown data
-        self._format_from = tk.StringVar()
         self._format_to = tk.StringVar()
 
         # Set arbitrary initial values
-        self._format_from.set("HEIC")
         self._format_to.set("JPG")
 
         # Create Dropdown menus
-        _drop_from = tk.OptionMenu(_left_frame, self._format_from, *self._FORMATS)
-        _button = tk.Button(_left_frame, text="Click Me", command=self.button_click)
-        _button.place(relx=0.5, rely=0.5, anchor="center")
-        _drop_from.place(relx=0.5, rely=0.5, anchor="center")
+        _upload_button = tk.Button(_left_frame, text="Upload Image", command=self.upload_image)
+        _upload_button.place(relx=0.4, rely=0.5)
         _drop_to = tk.OptionMenu(_right_frame, self._format_to, *self._FORMATS)
         _drop_to.place(relx=0.5, rely=0.5, anchor="center")
